@@ -41,9 +41,6 @@ jobs:
           if (Test-Path "$dir/MinimalFirewall.exe") {
             Rename-Item "$dir/MinimalFirewall.exe" 'Minimal.Firewall.exe'
           }
-          if (Test-Path "$dir/MinimalFirewall.exe.config") {
-            Rename-Item "$dir/MinimalFirewall.exe.config" 'Minimal.Firewall.exe.config'
-          }
           Get-ChildItem $dir | Select-Object Name, Length
 
       - name: Upload artifact
