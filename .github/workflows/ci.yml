@@ -25,18 +25,14 @@ jobs:
           cache: true
           cache-dependency-path: src/MinimalFirewall.csproj
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
       - name: Publish portable
         shell: pwsh
-        run: >
-          dotnet publish src/MinimalFirewall.csproj
-          -c Release
-          -r win-x64
-          --self-contained false
-          -p:PublishSingleFile=true
-          -p:IncludeNativeLibrariesForSelfExtract=true
-          -p:DebugType=none
-          -p:DebugSymbols=false
-          -o ${{ github.workspace }}/artifacts/publish
+        run: |
+          $publishDir = Join-Path $env:GITHUB_WORKSPACE 'artifacts/publish'
+          msbuild src/MinimalFirewall.csproj /t:Publish /p:Configuration=Release /p:RuntimeIdentifier=win-x64 /p:SelfContained=false /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:DebugType=none /p:DebugSymbols=false "/p:PublishDir=$publishDir/"
 
       - name: Normalize artifact name
         shell: pwsh
