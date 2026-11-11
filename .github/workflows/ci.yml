@@ -32,7 +32,7 @@ jobs:
         shell: pwsh
         run: |
           $publishDir = Join-Path $env:GITHUB_WORKSPACE 'artifacts/publish'
-          msbuild src/MinimalFirewall.csproj /t:Publish /p:Configuration=Release /p:RuntimeIdentifier=win-x64 /p:SelfContained=false /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:DebugType=none /p:DebugSymbols=false "/p:PublishDir=$publishDir/"
+          msbuild src/MinimalFirewall.csproj /restore /t:Publish /p:Configuration=Release /p:RuntimeIdentifier=win-x64 /p:SelfContained=false /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:DebugType=none /p:DebugSymbols=false "/p:PublishDir=$publishDir/"
 
       - name: Normalize artifact name
         shell: pwsh
